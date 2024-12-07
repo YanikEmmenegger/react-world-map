@@ -1,5 +1,5 @@
 // jest.config.js
-module.exports = {
+export default {
     roots: ['<rootDir>/src'],
     transform: {
         '^.+\\.tsx?$': 'ts-jest',

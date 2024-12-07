@@ -1,13 +1,13 @@
 // rollup.config.js
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import typescript from '@rollup/plugin-typescript';
-import postcss from 'rollup-plugin-postcss';
-import json from '@rollup/plugin-json';
-import pkg from './package.json';
+const peerDepsExternal = require('rollup-plugin-peer-deps-external');
+const resolve = require('@rollup/plugin-node-resolve').default;
+const commonjs = require('@rollup/plugin-commonjs');
+const typescript = require('@rollup/plugin-typescript');
+const postcss = require('rollup-plugin-postcss');
+const json = require('@rollup/plugin-json');
+const pkg = require('./package.json');
 
-export default {
+module.exports = {
     input: 'src/index.ts',
     output: [
         {
