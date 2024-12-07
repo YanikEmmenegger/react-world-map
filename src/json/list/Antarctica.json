@@ -1,0 +1,18 @@
+[
+  {
+    "code": "BV",
+    "component": "BouvetIsland"
+  },
+  {
+    "code": "GS",
+    "component": "SouthGeorgia"
+  },
+  {
+    "code": "HM",
+    "component": "HeardIslandAndMcdonaldIslands"
+  },
+  {
+    "code": "TF",
+    "component": "FrenchSouthernAndAntarcticLands"
+  }
+]

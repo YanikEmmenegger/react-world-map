@@ -1,0 +1,222 @@
+[
+  {
+    "code": "AD",
+    "component": "Andorra"
+  },
+  {
+    "code": "AL",
+    "component": "Albania"
+  },
+  {
+    "code": "AT",
+    "component": "Austria"
+  },
+  {
+    "code": "AX",
+    "component": "LandIslands"
+  },
+  {
+    "code": "AZ",
+    "component": "Azerbaijan"
+  },
+  {
+    "code": "BA",
+    "component": "BosniaAndHerzegovina"
+  },
+  {
+    "code": "BE",
+    "component": "Belgium"
+  },
+  {
+    "code": "BG",
+    "component": "Bulgaria"
+  },
+  {
+    "code": "BY",
+    "component": "Belarus"
+  },
+  {
+    "code": "CH",
+    "component": "Switzerland"
+  },
+  {
+    "code": "CY",
+    "component": "Cyprus"
+  },
+  {
+    "code": "CZ",
+    "component": "Czechia"
+  },
+  {
+    "code": "DE",
+    "component": "Germany"
+  },
+  {
+    "code": "DK",
+    "component": "Denmark"
+  },
+  {
+    "code": "EE",
+    "component": "Estonia"
+  },
+  {
+    "code": "ES",
+    "component": "Spain"
+  },
+  {
+    "code": "FI",
+    "component": "Finland"
+  },
+  {
+    "code": "FO",
+    "component": "FaroeIslands"
+  },
+  {
+    "code": "FR",
+    "component": "France"
+  },
+  {
+    "code": "GB",
+    "component": "UnitedKingdom"
+  },
+  {
+    "code": "GG",
+    "component": "Guernsey"
+  },
+  {
+    "code": "GI",
+    "component": "Gibraltar"
+  },
+  {
+    "code": "GR",
+    "component": "Greece"
+  },
+  {
+    "code": "HR",
+    "component": "Croatia"
+  },
+  {
+    "code": "HU",
+    "component": "Hungary"
+  },
+  {
+    "code": "IE",
+    "component": "Ireland"
+  },
+  {
+    "code": "IM",
+    "component": "IsleOfMan"
+  },
+  {
+    "code": "IS",
+    "component": "Iceland"
+  },
+  {
+    "code": "IT",
+    "component": "Italy"
+  },
+  {
+    "code": "JE",
+    "component": "Jersey"
+  },
+  {
+    "code": "XK",
+    "component": "Kosovo"
+  },
+  {
+    "code": "LI",
+    "component": "Liechtenstein"
+  },
+  {
+    "code": "LT",
+    "component": "Lithuania"
+  },
+  {
+    "code": "LU",
+    "component": "Luxembourg"
+  },
+  {
+    "code": "LV",
+    "component": "Latvia"
+  },
+  {
+    "code": "MC",
+    "component": "Monaco"
+  },
+  {
+    "code": "MD",
+    "component": "Moldova"
+  },
+  {
+    "code": "ME",
+    "component": "Montenegro"
+  },
+  {
+    "code": "MK",
+    "component": "NorthMacedonia"
+  },
+  {
+    "code": "MT",
+    "component": "Malta"
+  },
+  {
+    "code": "NL",
+    "component": "Netherlands"
+  },
+  {
+    "code": "NO",
+    "component": "Norway"
+  },
+  {
+    "code": "PL",
+    "component": "Poland"
+  },
+  {
+    "code": "PT",
+    "component": "Portugal"
+  },
+  {
+    "code": "RO",
+    "component": "Romania"
+  },
+  {
+    "code": "RS",
+    "component": "Serbia"
+  },
+  {
+    "code": "RU",
+    "component": "Russia"
+  },
+  {
+    "code": "SE",
+    "component": "Sweden"
+  },
+  {
+    "code": "SI",
+    "component": "Slovenia"
+  },
+  {
+    "code": "SJ",
+    "component": "SvalbardAndJanMayen"
+  },
+  {
+    "code": "SK",
+    "component": "Slovakia"
+  },
+  {
+    "code": "SM",
+    "component": "SanMarino"
+  },
+  {
+    "code": "TR",
+    "component": "Turkey"
+  },
+  {
+    "code": "UA",
+    "component": "Ukraine"
+  },
+  {
+    "code": "VA",
+    "component": "VaticanCity"
+  }
+]

@@ -1,0 +1,166 @@
+[
+  {
+    "code": "AG",
+    "component": "AntiguaAndBarbuda"
+  },
+  {
+    "code": "AI",
+    "component": "Anguilla"
+  },
+  {
+    "code": "AW",
+    "component": "Aruba"
+  },
+  {
+    "code": "BB",
+    "component": "Barbados"
+  },
+  {
+    "code": "BL",
+    "component": "SaintBarthLemy"
+  },
+  {
+    "code": "BM",
+    "component": "Bermuda"
+  },
+  {
+    "code": "BQ",
+    "component": "CaribbeanNetherlands"
+  },
+  {
+    "code": "BS",
+    "component": "Bahamas"
+  },
+  {
+    "code": "BZ",
+    "component": "Belize"
+  },
+  {
+    "code": "CA",
+    "component": "Canada"
+  },
+  {
+    "code": "CR",
+    "component": "CostaRica"
+  },
+  {
+    "code": "CU",
+    "component": "Cuba"
+  },
+  {
+    "code": "CW",
+    "component": "CuraAo"
+  },
+  {
+    "code": "DM",
+    "component": "Dominica"
+  },
+  {
+    "code": "DO",
+    "component": "DominicanRepublic"
+  },
+  {
+    "code": "GD",
+    "component": "Grenada"
+  },
+  {
+    "code": "GL",
+    "component": "Greenland"
+  },
+  {
+    "code": "GP",
+    "component": "Guadeloupe"
+  },
+  {
+    "code": "GT",
+    "component": "Guatemala"
+  },
+  {
+    "code": "HN",
+    "component": "Honduras"
+  },
+  {
+    "code": "HT",
+    "component": "Haiti"
+  },
+  {
+    "code": "JM",
+    "component": "Jamaica"
+  },
+  {
+    "code": "KN",
+    "component": "SaintKittsAndNevis"
+  },
+  {
+    "code": "KY",
+    "component": "CaymanIslands"
+  },
+  {
+    "code": "LC",
+    "component": "SaintLucia"
+  },
+  {
+    "code": "MF",
+    "component": "SaintMartin"
+  },
+  {
+    "code": "MQ",
+    "component": "Martinique"
+  },
+  {
+    "code": "MS",
+    "component": "Montserrat"
+  },
+  {
+    "code": "MX",
+    "component": "Mexico"
+  },
+  {
+    "code": "NI",
+    "component": "Nicaragua"
+  },
+  {
+    "code": "PA",
+    "component": "Panama"
+  },
+  {
+    "code": "PM",
+    "component": "SaintPierreAndMiquelon"
+  },
+  {
+    "code": "PR",
+    "component": "PuertoRico"
+  },
+  {
+    "code": "SV",
+    "component": "ElSalvador"
+  },
+  {
+    "code": "SX",
+    "component": "SintMaarten"
+  },
+  {
+    "code": "TC",
+    "component": "TurksAndCaicosIslands"
+  },
+  {
+    "code": "TT",
+    "component": "TrinidadAndTobago"
+  },
+  {
+    "code": "US",
+    "component": "UnitedStates"
+  },
+  {
+    "code": "VC",
+    "component": "SaintVincentAndTheGrenadines"
+  },
+  {
+    "code": "VG",
+    "component": "BritishVirginIslands"
+  },
+  {
+    "code": "VI",
+    "component": "UnitedStatesVirginIslands"
+  }
+]

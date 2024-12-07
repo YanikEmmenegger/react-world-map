@@ -1,0 +1,58 @@
+[
+  {
+    "code": "AR",
+    "component": "Argentina"
+  },
+  {
+    "code": "BO",
+    "component": "Bolivia"
+  },
+  {
+    "code": "BR",
+    "component": "Brazil"
+  },
+  {
+    "code": "CL",
+    "component": "Chile"
+  },
+  {
+    "code": "CO",
+    "component": "Colombia"
+  },
+  {
+    "code": "EC",
+    "component": "Ecuador"
+  },
+  {
+    "code": "FK",
+    "component": "FalklandIslands"
+  },
+  {
+    "code": "GF",
+    "component": "FrenchGuiana"
+  },
+  {
+    "code": "GY",
+    "component": "Guyana"
+  },
+  {
+    "code": "PE",
+    "component": "Peru"
+  },
+  {
+    "code": "PY",
+    "component": "Paraguay"
+  },
+  {
+    "code": "SR",
+    "component": "Suriname"
+  },
+  {
+    "code": "UY",
+    "component": "Uruguay"
+  },
+  {
+    "code": "VE",
+    "component": "Venezuela"
+  }
+]

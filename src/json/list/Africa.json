@@ -1,0 +1,234 @@
+[
+  {
+    "code": "AO",
+    "component": "Angola"
+  },
+  {
+    "code": "BF",
+    "component": "BurkinaFaso"
+  },
+  {
+    "code": "BI",
+    "component": "Burundi"
+  },
+  {
+    "code": "BJ",
+    "component": "Benin"
+  },
+  {
+    "code": "BW",
+    "component": "Botswana"
+  },
+  {
+    "code": "CD",
+    "component": "DrCongo"
+  },
+  {
+    "code": "CF",
+    "component": "CentralAfricanRepublic"
+  },
+  {
+    "code": "CG",
+    "component": "RepublicOfTheCongo"
+  },
+  {
+    "code": "CI",
+    "component": "IvoryCoast"
+  },
+  {
+    "code": "CM",
+    "component": "Cameroon"
+  },
+  {
+    "code": "CV",
+    "component": "CapeVerde"
+  },
+  {
+    "code": "DJ",
+    "component": "Djibouti"
+  },
+  {
+    "code": "DZ",
+    "component": "Algeria"
+  },
+  {
+    "code": "EG",
+    "component": "Egypt"
+  },
+  {
+    "code": "EH",
+    "component": "WesternSahara"
+  },
+  {
+    "code": "ER",
+    "component": "Eritrea"
+  },
+  {
+    "code": "ET",
+    "component": "Ethiopia"
+  },
+  {
+    "code": "GA",
+    "component": "Gabon"
+  },
+  {
+    "code": "GH",
+    "component": "Ghana"
+  },
+  {
+    "code": "GM",
+    "component": "Gambia"
+  },
+  {
+    "code": "GN",
+    "component": "Guinea"
+  },
+  {
+    "code": "GQ",
+    "component": "EquatorialGuinea"
+  },
+  {
+    "code": "GW",
+    "component": "GuineaBissau"
+  },
+  {
+    "code": "KE",
+    "component": "Kenya"
+  },
+  {
+    "code": "KM",
+    "component": "Comoros"
+  },
+  {
+    "code": "LR",
+    "component": "Liberia"
+  },
+  {
+    "code": "LS",
+    "component": "Lesotho"
+  },
+  {
+    "code": "LY",
+    "component": "Libya"
+  },
+  {
+    "code": "MA",
+    "component": "Morocco"
+  },
+  {
+    "code": "MG",
+    "component": "Madagascar"
+  },
+  {
+    "code": "ML",
+    "component": "Mali"
+  },
+  {
+    "code": "MR",
+    "component": "Mauritania"
+  },
+  {
+    "code": "MU",
+    "component": "Mauritius"
+  },
+  {
+    "code": "MW",
+    "component": "Malawi"
+  },
+  {
+    "code": "MZ",
+    "component": "Mozambique"
+  },
+  {
+    "code": "NA",
+    "component": "Namibia"
+  },
+  {
+    "code": "NE",
+    "component": "Niger"
+  },
+  {
+    "code": "NG",
+    "component": "Nigeria"
+  },
+  {
+    "code": "RE",
+    "component": "RUnion"
+  },
+  {
+    "code": "RW",
+    "component": "Rwanda"
+  },
+  {
+    "code": "SC",
+    "component": "Seychelles"
+  },
+  {
+    "code": "SD",
+    "component": "Sudan"
+  },
+  {
+    "code": "SH",
+    "component": "SaintHelenaAscensionAndTristanDaCunha"
+  },
+  {
+    "code": "SL",
+    "component": "SierraLeone"
+  },
+  {
+    "code": "SN",
+    "component": "Senegal"
+  },
+  {
+    "code": "SO",
+    "component": "Somalia"
+  },
+  {
+    "code": "SS",
+    "component": "SouthSudan"
+  },
+  {
+    "code": "ST",
+    "component": "SOTomAndPrNcipe"
+  },
+  {
+    "code": "SZ",
+    "component": "Eswatini"
+  },
+  {
+    "code": "TD",
+    "component": "Chad"
+  },
+  {
+    "code": "TG",
+    "component": "Togo"
+  },
+  {
+    "code": "TN",
+    "component": "Tunisia"
+  },
+  {
+    "code": "TZ",
+    "component": "Tanzania"
+  },
+  {
+    "code": "UG",
+    "component": "Uganda"
+  },
+  {
+    "code": "YT",
+    "component": "Mayotte"
+  },
+  {
+    "code": "ZA",
+    "component": "SouthAfrica"
+  },
+  {
+    "code": "ZM",
+    "component": "Zambia"
+  },
+  {
+    "code": "ZW",
+    "component": "Zimbabwe"
+  }
+]
