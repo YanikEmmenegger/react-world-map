@@ -3,6 +3,7 @@
     "target": "ES5",
     "module": "ESNext",
     "declaration": true,
+    "declarationDir": "dist",
     "outDir": "dist",
     "jsx": "react-jsx",
     "strict": true,
@@ -13,7 +14,8 @@
     "isolatedModules": true,
     "noEmit": false,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true // Ensures TypeScript uses tslib helpers
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "example", "public"]

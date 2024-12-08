@@ -21,6 +21,7 @@ module.exports = {
             sourcemap: true
         }
     ],
+    external: ['react', 'react-dom'], // Explicitly mark React as external
     plugins: [
         peerDepsExternal(),
         resolve(),
