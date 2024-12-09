@@ -1,10 +1,18 @@
 // src/types/index.ts
 
+import {ReactNode} from 'react';
+
+/**
+ * Represents a currency with its name and symbol.
+ */
 export interface Currency {
     name: string;
     symbol: string;
 }
 
+/**
+ * Represents a country with various attributes.
+ */
 export interface Country {
     code: string;
     commonName: string;
@@ -23,85 +31,105 @@ export interface Country {
     flag: string;
 }
 
-export interface Continent {
-    name: string;
-    countries: Country[];
-}
-
-export interface FilterState {
-    continents: string[];
-    countries: string[];
-}
-
-export interface FillColorsState {
-    [countryCode: string]: string;
-}
-
-export interface FlagBackgroundsState {
-    [countryCode: string]: boolean;
-}
-
-export interface CustomClassesState {
-    [countryCode: string]: string;
-}
-
-// Event Handler Types
-export type CountryClickHandler = (country: Country) => void;
-export type CountryHoverHandler = (country: Country, event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
-
-// Tooltip Data Type
+/**
+ * Represents the data required to display a tooltip.
+ */
 export interface TooltipData {
     x: number;
     y: number;
     content: React.ReactNode;
 }
 
-// Tooltip Configuration Type
+/**
+ * Configuration options for tooltips.
+ */
 export interface TooltipConfig {
     enabled: boolean;
     renderContent: (country: Country) => React.ReactNode;
 }
 
-// Context Interface
+/**
+ * Represents the properties and methods available in the map context.
+ */
 export interface MapContextProps {
-    continents: Continent[];
-    filter: FilterState;
-    setFilter: React.Dispatch<React.SetStateAction<FilterState>>;
-    fillColors: FillColorsState;
-    setFillColors: React.Dispatch<React.SetStateAction<FillColorsState>>;
-    changeFillColor: (countryCodes: string[], color: string) => void;
-    flagBackgrounds: FlagBackgroundsState;
-    toggleFlagBackground: (countryCodes: string[]) => void;
-    onCountryClick?: CountryClickHandler;
-    onCountryHover?: CountryHoverHandler;
-    showFlagOnHover: boolean;
+    // Data
+    countries: Country[];
 
-    // Custom Classes
-    customClasses: CustomClassesState;
-    setCustomClass: (countryCode: string, className: string) => void;
-    removeCustomClass: (countryCode: string) => void;
+    // Rendered Countries
+    renderedCountries: string[];
+    setRenderedCountries: (countryCodes: string[]) => void;
 
-    // Default and Continent-Specific Styles
-    defaultFillColor: string;
-    defaultClassName: string;
-    defaultShowFlag: boolean;
-    defaultShowFlagOnHover: boolean;
+    // Fill Colors
+    fillColors: Record<string, string>;
+    setFillColors: (countryCode: string, color: string) => void;
+    setFillColorForAll: (color: string) => void;
 
-    continentFillColors: Record<string, string>;
-    continentClassNames: Record<string, string>;
-    continentShowFlags: Record<string, boolean>;
-    continentShowFlagsOnHover: Record<string, boolean>;
-    continentOnClicks?: Record<string, CountryClickHandler>;
+    // Fill Type ('color' or 'flag')
+    fillType: Record<string, 'color' | 'flag'>;
+    setFillType: (countryCode: string, type: 'color' | 'flag') => void;
+    setFillTypeForAll: (type: 'color' | 'flag') => void;
 
-    // Country-Specific Overrides
-    countryFillColors: Record<string, string>;
-    countryClassNames: Record<string, string>;
-    countryShowFlags: Record<string, boolean>;
-    countryShowFlagsOnHover: Record<string, boolean>;
-    countryOnClicks?: Record<string, CountryClickHandler>;
+    // onClick Handlers
+    onClickHandlers: Record<string, (country: Country) => void>;
+    setOnClickHandler: (countryCode: string, handler: (country: Country) => void) => void;
+    setOnClickHandlerForAll: (handler: (country: Country) => void) => void;
 
-    // Tooltip State
+    // Flag on Hover
+    flagOnHover: Record<string, boolean>;
+    setFlagOnHover: (countryCode: string, show: boolean) => void;
+    setFlagOnHoverForAll: (show: boolean) => void;
+
+    // CSS Classes
+    cssClasses: Record<string, string>;
+    setCssClass: (countryCode: string, className: string) => void;
+    setCssClassForAll: (className: string) => void;
+    removeCssClass: (countryCode: string) => void;
+    removeCssClassForAll: () => void;
+
+    // Tooltip
     tooltip: TooltipData | null;
     setTooltip: React.Dispatch<React.SetStateAction<TooltipData | null>>;
     tooltipConfig: TooltipConfig;
+
+    // Default Styles
+    defaultFillColor: string;
+    defaultFillType: 'color' | 'flag';
+    defaultOnClickHandler?: (country: Country) => void;
+    defaultFlagOnHover: boolean;
+    defaultCssClass: string;
+}
+
+/**
+ * Props for the MapProvider component, allowing initial configurations.
+ */
+export interface MapProviderProps {
+    children: ReactNode;
+
+    // Initial Rendered Countries
+    initialRenderedCountries?: string[]; // Country codes to render initially
+
+    // Fill Colors
+    initialFillColors?: Record<string, string>; // Initial fill colors
+
+    // Fill Type
+    initialFillType?: Record<string, 'color' | 'flag'>; // Initial fill type
+
+    // onClick Handlers
+    initialOnClickHandlers?: Record<string, (country: Country) => void>; // Initial onClick handlers
+
+    // Flag on Hover
+    initialFlagOnHover?: Record<string, boolean>; // Initial flag on hover settings
+
+    // CSS Classes
+    initialCssClasses?: Record<string, string>; // Initial CSS classes
+
+    // Tooltip Configuration
+    tooltipConfig?: TooltipConfig;
+
+    // Default Settings
+    defaultFillColor?: string;
+    defaultFillType?: 'color' | 'flag';
+    defaultOnClickHandler?: (country: Country) => void;
+    defaultFlagOnHover?: boolean;
+    defaultCssClass?: string;
 }

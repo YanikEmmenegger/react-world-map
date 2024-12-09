@@ -1,151 +1,226 @@
 // src/context/MapContext.tsx
-import React, { createContext, ReactNode, useMemo, useState, useCallback } from 'react';
-import {
-    Continent,
-    Country,
-    MapContextProps,
-    FilterState,
-    FillColorsState,
-    FlagBackgroundsState,
-    CustomClassesState,
-    TooltipConfig,
-    TooltipData,
-    CountryClickHandler,
-    CountryHoverHandler,
-} from '../types';
+
+import React, {createContext, useCallback, useState} from 'react';
+import {allCountries} from '../data/allCountries';
+import {Country, MapContextProps, MapProviderProps, TooltipData,} from '../types';
 import Tooltip from '../components/Tooltip';
 
-interface MapProviderProps {
-    children: ReactNode;
-    continentsData: Continent[];
-    tooltipConfig?: TooltipConfig;
-}
-
+/**
+ * Creates a context for the map, initially undefined.
+ */
 export const MapContext = createContext<MapContextProps | undefined>(undefined);
 
+/**
+ * MapProvider component that wraps around the application or parts of it,
+ * providing map-related configurations and state management.
+ */
 export const MapProvider: React.FC<MapProviderProps> = ({
                                                             children,
-                                                            continentsData,
+                                                            initialRenderedCountries = allCountries.map(country => country.code),
+                                                            initialFillColors = {},
+                                                            initialFillType = {},
+                                                            initialOnClickHandlers = {},
+                                                            initialFlagOnHover = {},
+                                                            initialCssClasses = {},
                                                             tooltipConfig = {
                                                                 enabled: false,
                                                                 renderContent: (country) => country.commonName,
                                                             },
+                                                            defaultFillColor = '#cccccc',
+                                                            defaultFillType = 'color',
+                                                            defaultOnClickHandler,
+                                                            defaultFlagOnHover = false,
+                                                            defaultCssClass = '',
                                                         }) => {
-    // Initialize state
-    const [filter, setFilter] = useState<FilterState>({
-        continents: [],
-        countries: [],
-    });
+    // State: All Countries Data
+    const [countries] = useState<Country[]>(allCountries);
 
-    const [fillColors, setFillColors] = useState<FillColorsState>({});
-    const [flagBackgrounds, setFlagBackgrounds] = useState<FlagBackgroundsState>({});
-    const [customClasses, setCustomClasses] = useState<CustomClassesState>({});
+    // State: Rendered Countries (Country Codes)
+    const [renderedCountries, setRenderedCountries] = useState<string[]>(initialRenderedCountries);
+
+    // State: Fill Colors
+    const [fillColors, setFillColors] = useState<Record<string, string>>(initialFillColors);
+
+    // State: Fill Type ('color' or 'flag')
+    const [fillType, setFillType] = useState<Record<string, 'color' | 'flag'>>(initialFillType);
+
+    // State: onClick Handlers
+    const [onClickHandlers, setOnClickHandlers] = useState<Record<string, (country: Country) => void>>(initialOnClickHandlers);
+
+    // State: Flag on Hover
+    const [flagOnHover, setFlagOnHover] = useState<Record<string, boolean>>(initialFlagOnHover);
+
+    // State: CSS Classes
+    const [cssClasses, setCssClasses] = useState<Record<string, string>>(initialCssClasses);
+
+    // Tooltip State
     const [tooltip, setTooltip] = useState<TooltipData | null>(null);
 
-    // Handlers
-    const changeFillColor = useCallback(
-        (countryCodes: string[], color: string) => {
-            setFillColors((prev) => ({
-                ...prev,
-                ...countryCodes.reduce((acc, code) => ({ ...acc, [code]: color }), {}),
-            }));
-        },
-        []
-    );
+    /**
+     * Function to update rendered countries
+     */
+    const updateRenderedCountries = useCallback((newCountryCodes: string[]) => {
+        setRenderedCountries(newCountryCodes);
+    }, []);
 
-    const toggleFlagBackground = useCallback((countryCodes: string[]) => {
-        setFlagBackgrounds((prev) => {
-            const updated = { ...prev };
-            countryCodes.forEach((code) => {
-                updated[code] = !prev[code];
-            });
-            return updated;
+    /**
+     * Function to update fill color for a specific country
+     */
+    const updateFillColors = useCallback((countryCode: string, color: string) => {
+        setFillColors(prev => ({...prev, [countryCode]: color}));
+    }, []);
+
+    /**
+     * Function to update fill color for all countries
+     */
+    const updateFillColorsForAll = useCallback((color: string) => {
+        const updated: Record<string, string> = {};
+        countries.forEach(country => {
+            updated[country.code] = color;
         });
+        setFillColors(updated);
+    }, [countries]);
+
+    /**
+     * Function to update fill type for a specific country
+     */
+    const updateFillType = useCallback((countryCode: string, type: 'color' | 'flag') => {
+        setFillType(prev => ({...prev, [countryCode]: type}));
     }, []);
 
-    const setCustomClass = useCallback((countryCode: string, className: string) => {
-        setCustomClasses((prev) => ({ ...prev, [countryCode]: className }));
-        setFilter((prev) => ({ ...prev, countries: [] }));
+    /**
+     * Function to update fill type for all countries
+     */
+    const updateFillTypeForAll = useCallback((type: 'color' | 'flag') => {
+        const updated: Record<string, 'color' | 'flag'> = {};
+        countries.forEach(country => {
+            updated[country.code] = type;
+        });
+        setFillType(updated);
+    }, [countries]);
+
+    /**
+     * Function to update onClick handler for a specific country
+     */
+    const updateOnClickHandler = useCallback((countryCode: string, handler: (country: Country) => void) => {
+        setOnClickHandlers(prev => ({...prev, [countryCode]: handler}));
     }, []);
 
-    const removeCustomClass = useCallback((countryCode: string) => {
-        setCustomClasses((prev) => {
+    /**
+     * Function to update onClick handler for all countries
+     */
+    const updateOnClickHandlerForAll = useCallback((handler: (country: Country) => void) => {
+        const updated: Record<string, (country: Country) => void> = {};
+        countries.forEach(country => {
+            updated[country.code] = handler;
+        });
+        setOnClickHandlers(updated);
+    }, [countries]);
+
+    /**
+     * Function to update flag on hover for a specific country
+     */
+    const updateFlagOnHover = useCallback((countryCode: string, show: boolean) => {
+        setFlagOnHover(prev => ({...prev, [countryCode]: show}));
+    }, []);
+
+    /**
+     * Function to update flag on hover for all countries
+     */
+    const updateFlagOnHoverForAll = useCallback((show: boolean) => {
+        const updated: Record<string, boolean> = {};
+        countries.forEach(country => {
+            updated[country.code] = show;
+        });
+        setFlagOnHover(updated);
+    }, [countries]);
+
+    /**
+     * Function to set CSS class for a specific country
+     */
+    const setCssClass = useCallback((countryCode: string, className: string) => {
+        setCssClasses(prev => ({...prev, [countryCode]: className}));
+    }, []);
+
+    /**
+     * Function to set CSS class for all countries
+     */
+    const setCssClassForAll = useCallback((className: string) => {
+        const updated: Record<string, string> = {};
+        countries.forEach(country => {
+            updated[country.code] = className;
+        });
+        setCssClasses(updated);
+    }, [countries]);
+
+    /**
+     * Function to remove CSS class from a specific country
+     */
+    const removeCssClass = useCallback((countryCode: string) => {
+        setCssClasses(prev => {
             const updated = { ...prev };
             delete updated[countryCode];
             return updated;
         });
     }, []);
 
-    // Additional setters for state
-    const setShowFlag = useCallback((countryCodes: string[], show: boolean) => {
-        setFlagBackgrounds((prev) => ({
-            ...prev,
-            ...countryCodes.reduce((acc, code) => ({ ...acc, [code]: show }), {}),
-        }));
+    /**
+     * Function to remove CSS class from all countries
+     */
+    const removeCssClassForAll = useCallback(() => {
+        setCssClasses({});
     }, []);
 
-    const setShowFlagOnHover = useCallback((countryCodes: string[], show: boolean) => {
-        // Implement similar state if needed
-    }, []);
+    /**
+     * Context Value
+     */
+    const contextValue: MapContextProps = {
+        // Data
+        countries,
 
-    const setOnClick = useCallback((countryCode: string, handler: CountryClickHandler) => {
-        // Implement similar state if needed
-    }, []);
+        // Rendered Countries
+        renderedCountries,
+        setRenderedCountries: updateRenderedCountries,
 
-    const contextValue = useMemo<MapContextProps>(() => ({
-        continents: continentsData,
-        filter,
-        setFilter,
+        // Fill Colors
         fillColors,
-        setFillColors,
-        changeFillColor,
-        flagBackgrounds,
-        toggleFlagBackground,
-        onCountryClick: undefined, // To be set via props or hooks
-        onCountryHover: undefined, // To be set via props or hooks
-        showFlagOnHover: false, // Default value, can be customized
+        setFillColors: updateFillColors,
+        setFillColorForAll: updateFillColorsForAll,
 
-        // Custom Classes
-        customClasses,
-        setCustomClass,
-        removeCustomClass,
+        // Fill Type
+        fillType,
+        setFillType: updateFillType,
+        setFillTypeForAll: updateFillTypeForAll,
 
-        // Default and Continent-Specific Styles
-        defaultFillColor: '#cccccc',
-        defaultClassName: '',
-        defaultShowFlag: false,
-        defaultShowFlagOnHover: false,
+        // onClick Handlers
+        onClickHandlers,
+        setOnClickHandler: updateOnClickHandler,
+        setOnClickHandlerForAll: updateOnClickHandlerForAll,
 
-        continentFillColors: {},
-        continentClassNames: {},
-        continentShowFlags: {},
-        continentShowFlagsOnHover: {},
-        continentOnClicks: {},
+        // Flag on Hover
+        flagOnHover,
+        setFlagOnHover: updateFlagOnHover,
+        setFlagOnHoverForAll: updateFlagOnHoverForAll,
 
-        // Country-Specific Overrides
-        countryFillColors: fillColors,
-        countryClassNames: customClasses,
-        countryShowFlags: flagBackgrounds,
-        countryShowFlagsOnHover: {}, // Implement if needed
-        countryOnClicks: {}, // Implement if needed
+        // CSS Classes
+        cssClasses,
+        setCssClass,
+        setCssClassForAll,
+        removeCssClass,
+        removeCssClassForAll,
 
         // Tooltip State
         tooltip,
         setTooltip,
         tooltipConfig,
-    }), [
-        continentsData,
-        filter,
-        fillColors,
-        flagBackgrounds,
-        customClasses,
-        changeFillColor,
-        toggleFlagBackground,
-        setCustomClass,
-        removeCustomClass,
-        tooltip,
-        tooltipConfig,
-    ]);
+
+        // Default Styles
+        defaultFillColor,
+        defaultFillType,
+        defaultOnClickHandler,
+        defaultFlagOnHover,
+        defaultCssClass,
+    };
 
     return (
         <MapContext.Provider value={contextValue}>
