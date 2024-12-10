@@ -2,7 +2,7 @@
 
 import React, {createContext, useCallback, useState} from 'react';
 import {allCountries} from '../data/allCountries';
-import {Country, MapContextProps, MapProviderProps, TooltipData,} from '../types';
+import {Country, MapContextProps, MapProviderProps, TooltipData} from '../types';
 import Tooltip from '../components/Tooltip';
 
 /**
@@ -55,6 +55,14 @@ export const MapProvider: React.FC<MapProviderProps> = ({
 
     // Tooltip State
     const [tooltip, setTooltip] = useState<TooltipData | null>(null);
+
+    // Zoom Functions
+    const [zoomIn, setZoomIn] = useState<() => void>(() => () => {
+    });
+    const [zoomOut, setZoomOut] = useState<() => void>(() => () => {
+    });
+    const [resetZoom, setResetZoom] = useState<() => void>(() => () => {
+    });
 
     /**
      * Function to update rendered countries
@@ -172,6 +180,15 @@ export const MapProvider: React.FC<MapProviderProps> = ({
     }, []);
 
     /**
+     * Function to set zoom functions
+     */
+    const setZoomFunctions = useCallback((inFn: () => void, outFn: () => void, resetFn: () => void) => {
+        setZoomIn(() => inFn);
+        setZoomOut(() => outFn);
+        setResetZoom(() => resetFn);
+    }, []);
+
+    /**
      * Context Value
      */
     const contextValue: MapContextProps = {
@@ -220,6 +237,12 @@ export const MapProvider: React.FC<MapProviderProps> = ({
         defaultOnClickHandler,
         defaultFlagOnHover,
         defaultCssClass,
+
+        // Zoom Functions
+        zoomIn,
+        zoomOut,
+        resetZoom,
+        setZoomFunctions,
     };
 
     return (

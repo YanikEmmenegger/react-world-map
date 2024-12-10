@@ -1,55 +1,57 @@
 // ExampleApp.tsx
 
 
-import {MapProvider} from "../../src/context/MapContext.tsx";
-import World from "../../src/components/World.tsx";
+import {MapProvider, World} from "../../src";
 import ControlPanel from "./test.tsx";
+import Customzoomcontrols from "./customzoomcontrols.tsx";
 
 const App = () => {
 
 
     return (
+        <div className={"w-1/4 mx-auto min-h-64 h-auto"}>
+
 
             <MapProvider
-
-                initialRenderedCountries={['AU', 'US', 'CH']} // Only Andorra, USA, Switzerland
                 initialFillColors={{
                     AD: '#ff0000',
                     US: '#0000ff',
-                    CH: '#00ff00'
+                    CH: '#00ff00',
                 }}
                 initialFillType={{
-                    CH: 'color', // Switzerland will display its flag as fill
+                    CH: 'flag',
                 }}
                 initialOnClickHandlers={{
-                    //US: (country) => alert(`Clicked on ${country.commonName}`),
+                    US: (country) => alert(`Clicked on ${country.commonName}`),
                 }}
                 initialFlagOnHover={{
-                    US: true, // USA will display its flag on hover
+                    US: true,
                 }}
-
                 initialCssClasses={{
-                    CH: 'highlight', // Add 'highlight' class to Switzerland
+                    CH: 'highlight',
                 }}
                 tooltipConfig={{
                     enabled: true,
                     renderContent: (country) => (
-                        <div className={"bg-cyan-200 p-2 "}>
+                        <div>
                             <strong>{country.commonName}</strong>
                             <p>Population: {country.population.toLocaleString()}</p>
                             <p>Capital: {country.capital}</p>
                         </div>
                     ),
                 }}
-                defaultFillColor="#f00f00"
-                defaultFillType="color"
-                //defaultOnClickHandler={(country) => console.log(`Clicked on ${country.commonName}`)}
+                defaultFillColor="#cccccc"
+                defaultFillType="flag"
+                defaultOnClickHandler={(country) => console.log(`Clicked on ${country.commonName}`)}
                 defaultFlagOnHover={false}
-                defaultCssClass="stroke-[0.1] z-10 hover:z-50 stroke-amber-500 hover:stroke-black"
-            >                <ControlPanel />
+                defaultCssClass=""
+            >
+                <ControlPanel/>
+                <Customzoomcontrols/>
+                <World className={"bg-red-300"}/>
 
-                <World controls={true} />
             </MapProvider>
+        </div>
     );
 };
 
