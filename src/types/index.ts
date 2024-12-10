@@ -1,6 +1,6 @@
 // src/types/index.ts
 
-import {ReactNode} from 'react';
+import { ReactNode } from 'react';
 
 /**
  * Represents a currency with its name and symbol.
@@ -97,6 +97,12 @@ export interface MapContextProps {
     defaultOnClickHandler?: (country: Country) => void;
     defaultFlagOnHover: boolean;
     defaultCssClass: string;
+
+    // Zoom Functions
+    zoomIn: () => void;
+    zoomOut: () => void;
+    resetZoom: () => void;
+    setZoomFunctions: (zoomIn: () => void, zoomOut: () => void, resetZoom: () => void) => void;
 }
 
 /**

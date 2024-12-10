@@ -25,7 +25,7 @@ const ControlPanel: React.FC = () => {
     }
 
     return (
-        <div className="p-4 bg-gr ay-100">
+        <div className="p-4 bg-gray-100">
             <h2 className="text-xl font-bold mb-2">Control Panel</h2>
             <div className="flex items-center mb-4">
                 <input
