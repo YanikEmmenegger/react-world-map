@@ -1,5 +1,3 @@
-// src/components/CountryComponent.tsx
-
 import React, {useMemo, useState} from 'react';
 import {Country} from '../types';
 import useMap from '../hooks/useMap';
@@ -10,7 +8,9 @@ interface CountryProps {
 }
 
 /**
- * Country component that renders an individual country on the SVG map.
+ * CountryComponent:
+ * Renders an SVG path representing a specific country.
+ * Provides interactivity such as hover (tooltip, flag change) and click events.
  */
 const CountryComponent: React.FC<CountryProps> = ({country}) => {
     const {
@@ -28,36 +28,45 @@ const CountryComponent: React.FC<CountryProps> = ({country}) => {
         defaultCssClass,
     } = useMap();
 
+    // Local state to track when the country's flag should be shown on hover.
     const [isFlagOnHover, setIsFlagOnHover] = useState<boolean>(false);
 
     /**
-     * Determine the fill color or flag based on fillType
+     * Compute the current fill style.
+     * If fillType is 'flag', it references a pattern; otherwise, use a solid color.
      */
     const currentFill = useMemo<string>(() => {
-        const type = fillType[country.code] || defaultFillType;
+        const type = fillType[country.alpha2Code] || defaultFillType;
         if (type === 'flag') {
-            return `url(#${country.code}-flag)`;
+            // When using a flag fill, a pattern is defined and referenced via url(#pattern-id).
+            return `url(#${country.alpha2Code}-flag)`;
         }
-        return fillColors[country.code] || defaultFillColor;
-    }, [fillColors, fillType, country.code, defaultFillType, defaultFillColor]);
+        // If not flag, default to the specified color or fallback.
+        return fillColors[country.alpha2Code] || defaultFillColor;
+    }, [fillColors, fillType, country.alpha2Code, defaultFillType, defaultFillColor]);
 
     /**
-     * Determine if flag should be shown on hover
+     * Determine if the flag should be shown on hover.
+     * Prioritize per-country setting, then fallback to the default.
      */
     const showFlagOnHover = useMemo<boolean>(() => {
-        return flagOnHover[country.code] !== undefined ? flagOnHover[country.code] : defaultFlagOnHover;
-    }, [flagOnHover, country.code, defaultFlagOnHover]);
+        return flagOnHover[country.alpha2Code] !== undefined ? flagOnHover[country.alpha2Code] : defaultFlagOnHover;
+    }, [flagOnHover, country.alpha2Code, defaultFlagOnHover]);
 
     /**
-     * Handle mouse enter event
+     * Mouse enter event handler:
+     * - Possibly show the flag if enabled.
+     * - Show tooltip if enabled.
      */
     const handleMouseEnter = (event: React.MouseEvent<SVGPathElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
+
         if (showFlagOnHover) {
             setIsFlagOnHover(true);
         }
 
+        // If tooltips are enabled, display the tooltip with rendered content at the mouse location.
         if (tooltipConfig.enabled) {
             const tooltipContent = tooltipConfig.renderContent(country);
             setTooltip({
@@ -69,11 +78,14 @@ const CountryComponent: React.FC<CountryProps> = ({country}) => {
     };
 
     /**
-     * Handle mouse leave event
+     * Mouse leave event handler:
+     * - Hide the flag if previously shown on hover.
+     * - Hide the tooltip if it was displayed.
      */
     const handleMouseLeave = (event: React.MouseEvent<SVGPathElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
+
         if (showFlagOnHover) {
             setIsFlagOnHover(false);
         }
@@ -84,38 +96,43 @@ const CountryComponent: React.FC<CountryProps> = ({country}) => {
     };
 
     /**
-     * Handle click event
+     * Click event handler:
+     * If a click handler is assigned to the specific country or default,
+     * invoke it, passing the country data.
      */
     const handleClick = (event: React.MouseEvent<SVGPathElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
-        const handler = onClickHandlers[country.code] || defaultOnClickHandler;
+        const handler = onClickHandlers[country.alpha2Code] || defaultOnClickHandler;
         if (handler) {
             handler(country);
         }
     };
 
     /**
-     * Determine the final fill to display
+     * Determine the final fill to display:
+     * If currently hovered with flagOnHover, show the flag;
+     * otherwise, use the computed current fill.
      */
     const finalFill = useMemo<string>(() => {
         if (isFlagOnHover) {
-            return `url(#${country.code}-flag)`;
+            return `url(#${country.alpha2Code}-flag)`;
         }
         return currentFill;
-    }, [isFlagOnHover, currentFill, country.code]);
+    }, [isFlagOnHover, currentFill, country.alpha2Code]);
 
     /**
-     * Define the flag pattern if fillType is 'flag' or flag on hover is enabled
+     * Define the flag pattern if fillType is 'flag' or if flag-on-hover is enabled.
+     * Patterns are defined within <defs> and referenced by the <path> fill attribute.
      */
     const flagPattern = useMemo(() => {
-        const type = fillType[country.code] || defaultFillType;
+        const type = fillType[country.alpha2Code] || defaultFillType;
         const shouldDisplayFlag = type === 'flag' || showFlagOnHover;
         if (shouldDisplayFlag) {
             return (
                 <defs>
                     <pattern
-                        id={`${country.code}-flag`}
+                        id={`${country.alpha2Code}-flag`}
                         patternUnits="objectBoundingBox"
                         width="1"
                         height="1"
@@ -134,22 +151,24 @@ const CountryComponent: React.FC<CountryProps> = ({country}) => {
             );
         }
         return null;
-    }, [fillType, country.code, country.flagUrl, showFlagOnHover, defaultFillType]);
+    }, [fillType, country.alpha2Code, country.flagUrl, showFlagOnHover, defaultFillType]);
 
     /**
-     * Determine CSS class
+     * Determine the final CSS class to apply:
+     * Merge various identifying classes (alpha codes, continent) with user-defined classes.
      */
     const cssClass = useMemo<string>(() => {
-        const countryClass = cssClasses[country.code] || '';
+        const countryClass = cssClasses[country.alpha2Code] || '';
         return twMerge(
-            'stroke-[0.1] hover:stroke-white stroke-black',
-            'transition-all duration-300',
-            'focus:outline-none focus:ring-2 focus:ring-blue-500',
-            'cursor-pointer',
+            country.alpha3Code.toLowerCase(),
+            country.alpha2Code.toLowerCase(),
+            country.continent.replace(' ', '-').toLowerCase(),
+            'ring-0 outline-none', // accessibility and focus styles
+            'focus:outline-none',
             defaultCssClass,
             countryClass
         );
-    }, [cssClasses, country.code, defaultCssClass]);
+    }, [cssClasses, country.alpha2Code, defaultCssClass]);
 
     return (
         <>
@@ -161,10 +180,12 @@ const CountryComponent: React.FC<CountryProps> = ({country}) => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onClick={handleClick}
-                tabIndex={0} // Makes the element focusable
-                aria-label={`Country: ${country.commonName}`}
-                data-code={country.code}
-                role="button" // ARIA role for accessibility
+                tabIndex={0} // Makes the element focusable for keyboard navigation.
+                aria-label={`Country: ${country.commonName}`} // Accessibility label for screen readers.
+                data-code={country.alpha2Code}
+                data-code3={country.alpha3Code}
+                data-continent={country.continent}
+                role="button" // ARIA role to indicate interactivity.
             />
         </>
     );

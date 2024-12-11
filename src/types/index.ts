@@ -1,6 +1,4 @@
-// src/types/index.ts
-
-import { ReactNode } from 'react';
+import {ReactNode} from 'react';
 
 /**
  * Represents a currency with its name and symbol.
@@ -12,27 +10,36 @@ export interface Currency {
 
 /**
  * Represents a country with various attributes.
+ * These attributes help in identifying the country, its codes, and metadata
+ * needed for rendering and interaction.
  */
 export interface Country {
-    code: string;
     commonName: string;
     officialName: string;
+    alpha2Code: string;
+    alpha3Code: string;
+    independent: boolean;
+    unMember: boolean;
+    dependsOn?: string | null;
     continent: string;
     region: string;
     subregion: string;
     population: number;
     capital: string;
     area: number;
-    languages: { [key: string]: string };
-    currencies: { [key: string]: Currency };
+    languages: [{ [key: string]: string }];
+    currencies: [{ [key: string]: Currency }];
     flagUrl: string;
     flagAlt: string;
-    svgPath: string;
+    svgPath: string; // The SVG path that outlines this country’s geography.
     flag: string;
+    longLatCapital: { long: number; lat: number };
+    alsoKnownAs: string[];
 }
 
 /**
  * Represents the data required to display a tooltip.
+ * Tooltips show contextual information about a country upon interaction.
  */
 export interface TooltipData {
     x: number;
@@ -42,6 +49,7 @@ export interface TooltipData {
 
 /**
  * Configuration options for tooltips.
+ * Includes whether tooltips are enabled and a function to render custom content.
  */
 export interface TooltipConfig {
     enabled: boolean;
@@ -50,6 +58,7 @@ export interface TooltipConfig {
 
 /**
  * Represents the properties and methods available in the map context.
+ * This context allows for global state management of map data and user interactions.
  */
 export interface MapContextProps {
     // Data
@@ -107,27 +116,29 @@ export interface MapContextProps {
 
 /**
  * Props for the MapProvider component, allowing initial configurations.
+ * This allows consumers of the library to pre-define how the map behaves,
+ * such as default colors, event handlers, and tooltip behavior.
  */
 export interface MapProviderProps {
     children: ReactNode;
 
     // Initial Rendered Countries
-    initialRenderedCountries?: string[]; // Country codes to render initially
+    initialRenderedCountries?: string[];
 
     // Fill Colors
-    initialFillColors?: Record<string, string>; // Initial fill colors
+    initialFillColors?: Record<string, string>;
 
     // Fill Type
-    initialFillType?: Record<string, 'color' | 'flag'>; // Initial fill type
+    initialFillType?: Record<string, 'color' | 'flag'>;
 
     // onClick Handlers
-    initialOnClickHandlers?: Record<string, (country: Country) => void>; // Initial onClick handlers
+    initialOnClickHandlers?: Record<string, (country: Country) => void>;
 
     // Flag on Hover
-    initialFlagOnHover?: Record<string, boolean>; // Initial flag on hover settings
+    initialFlagOnHover?: Record<string, boolean>;
 
     // CSS Classes
-    initialCssClasses?: Record<string, string>; // Initial CSS classes
+    initialCssClasses?: Record<string, string>;
 
     // Tooltip Configuration
     tooltipConfig?: TooltipConfig;
